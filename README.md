@@ -20,6 +20,8 @@
 
 # \### Authentication and Role-Based Access
 
+# 
+
 # \- Secure username and password authentication
 
 # \- Passwords stored using BCrypt hashing
@@ -36,11 +38,13 @@
 
 # \- Session-based authentication
 
-# \- Restricted pages and functions based on user role
+# \- Restricted pages and functions according to user role
 
 # 
 
 # \### Patient Management
+
+# 
 
 # \- Register new patients
 
@@ -54,6 +58,8 @@
 
 # \### Appointment Management
 
+# 
+
 # \- Generate unique appointment numbers automatically
 
 # \- Register new appointments
@@ -66,7 +72,7 @@
 
 # \- Cancel appointments while retaining appointment history
 
-# \- Prevent appointments from being created in the past
+# \- Prevent appointments from being created for past dates
 
 # \- Prevent dentist double-booking for the same date and time
 
@@ -75,6 +81,8 @@
 # 
 
 # \### Billing
+
+# 
 
 # \- Generate bills for appointments
 
@@ -96,6 +104,8 @@
 
 # \### Reports
 
+# 
+
 # \- Appointment reports
 
 # \- Billing reports
@@ -105,6 +115,8 @@
 # 
 
 # \### Additional Features
+
+# 
 
 # \- Help section for system users
 
@@ -126,7 +138,7 @@
 
 # | Technology | Purpose |
 
-# |------------|---------|
+# |---|---|
 
 # | Java 21 | Main programming language |
 
@@ -174,7 +186,11 @@
 
 # \### Presentation Layer
 
+# 
+
 # Implemented using:
+
+# 
 
 # \- Spring MVC controllers
 
@@ -182,7 +198,7 @@
 
 # \- Bootstrap 5
 
-# \- HTML/CSS/JavaScript
+# \- HTML, CSS, and JavaScript
 
 # 
 
@@ -192,11 +208,15 @@
 
 # \### Business Layer
 
+# 
+
 # Implemented using service classes.
 
 # 
 
 # The service layer contains the main business rules and validation, including:
+
+# 
 
 # \- Appointment validation
 
@@ -212,7 +232,11 @@
 
 # \### Data Access Layer
 
+# 
+
 # Implemented using:
+
+# 
 
 # \- JPA entities
 
@@ -229,6 +253,8 @@
 # 
 
 # \### Web Services
+
+# 
 
 # Read-only REST endpoints are provided under:
 
@@ -260,7 +286,7 @@
 
 # | Tool | Version |
 
-# |------|---------|
+# |---|---|
 
 # | JDK | 21 |
 
@@ -320,7 +346,7 @@
 
 # 
 
-# The application is configured to obtain database credentials from environment variables rather than storing the MySQL password directly in the Git repository.
+# The application obtains database credentials from environment variables rather than storing the MySQL password directly in the Git repository.
 
 # 
 
@@ -366,7 +392,7 @@
 
 # 
 
-# Example:
+# For example:
 
 # 
 
@@ -402,13 +428,7 @@
 
 # 5\. Allow IntelliJ IDEA to detect the Maven project and download the required dependencies.
 
-# 6\. Go to:
-
-# 
-
-# &#x20;  \*\*File > Project Structure > Project\*\*
-
-# 
+# 6\. Go to \*\*File > Project Structure > Project\*\*.
 
 # 7\. Confirm that the project SDK is \*\*JDK 21\*\*.
 
@@ -478,13 +498,13 @@
 
 # 
 
-# The following accounts are provided for \*\*development and demonstration purposes only\*\*.
+# The following accounts are provided for \*\*local development and academic demonstration purposes only\*\*.
 
 # 
 
 # | Username | Password | Role |
 
-# |----------|----------|------|
+# |---|---|---|
 
 # | admin | Admin@123 | ADMIN |
 
@@ -530,7 +550,7 @@
 
 # 
 
-# These credentials are intended only for local development and academic demonstration.
+# These credentials should not be used in a production environment.
 
 # 
 
@@ -547,6 +567,8 @@
 # 
 
 # The administrator can access administrative functions including:
+
+# 
 
 # \- User management
 
@@ -567,6 +589,8 @@
 # 
 
 # The receptionist handles the main operational functions of the clinic:
+
+# 
 
 # \- Patient registration and search
 
@@ -596,9 +620,11 @@
 
 # The dentist has restricted, primarily read-only access:
 
+# 
+
 # \- View appointments
 
-# \- Search/view patient information
+# \- Search and view patient information
 
 # \- Filter appointment information
 
@@ -639,6 +665,8 @@
 # 
 
 # The database uses:
+
+# 
 
 # \- Primary keys
 
@@ -722,7 +750,7 @@
 
 # | Method | Endpoint | Description |
 
-# |--------|----------|-------------|
+# |---|---|---|
 
 # | GET | `/api/patients` | Retrieve all patients |
 
@@ -836,7 +864,7 @@
 
 # 
 
-# The tests use mocked repositories where appropriate and therefore do not require the production MySQL database for the service-layer unit tests.
+# The service-layer unit tests use mocked repositories where appropriate and therefore do not require the production MySQL database.
 
 # 
 
@@ -876,6 +904,8 @@
 
 # The workflow:
 
+# 
+
 # 1\. Checks out the repository.
 
 # 2\. Configures Temurin JDK 21.
@@ -894,7 +924,7 @@
 
 # 
 
-# This ensures automated tests are executed before changes are accepted into the main development branch.
+# This helps verify that automated tests continue to pass when changes are introduced.
 
 # 
 
@@ -911,6 +941,8 @@
 # 
 
 # Development practices demonstrated include:
+
+# 
 
 # \- Incremental commits
 
@@ -964,7 +996,99 @@
 
 # 
 
-# These tags represent major stages in the development and release of the application.
+# These tags identify significant stages of the application development and release process.
+
+# 
+
+# \---
+
+# 
+
+# \## Screenshots
+
+# 
+
+# \### Login Page
+
+# 
+
+# Secure login page used by authorized clinic staff.
+
+# 
+
+# !\[Login Page](docs/screenshots/01-login.png)
+
+# 
+
+# \### Administrator Dashboard
+
+# 
+
+# Role-based administrator dashboard providing access to system administration functions.
+
+# 
+
+# !\[Administrator Dashboard](docs/screenshots/02-admin-dashboard.png)
+
+# 
+
+# \### Receptionist Dashboard
+
+# 
+
+# Receptionist dashboard providing access to patient, appointment, billing, and reporting functions.
+
+# 
+
+# !\[Receptionist Dashboard](docs/screenshots/03-receptionist-dashboard.png)
+
+# 
+
+# \### Appointment Management
+
+# 
+
+# Appointment management functionality for registering and viewing patient appointments.
+
+# 
+
+# !\[Appointment Management](docs/screenshots/04-appointment.png)
+
+# 
+
+# \### Double-Booking Prevention
+
+# 
+
+# The system prevents a dentist from being assigned to two appointments at the same date and time.
+
+# 
+
+# !\[Double Booking Validation](docs/screenshots/05-double-booking-validation.png)
+
+# 
+
+# \### Bill and Receipt
+
+# 
+
+# Bills are generated using the treatment fee and consultation fee, with the total calculated automatically.
+
+# 
+
+# !\[Bill Receipt](docs/screenshots/06-bill-receipt.png)
+
+# 
+
+# \### Reports
+
+# 
+
+# The system provides reporting functionality for reviewing clinic appointment and billing information.
+
+# 
+
+# !\[Reports](docs/screenshots/07-reports.png)
 
 # 
 
@@ -988,7 +1112,7 @@
 
 # 
 
-# \- Appointment records are not physically deleted when cancelled. Their status is changed to `CANCELLED` so that historical information remains available for reports and auditing.
+# \- Appointment records are not physically deleted when cancelled. Their status is changed to `CANCELLED` so that historical information remains available for reports.
 
 # 
 
@@ -1020,7 +1144,23 @@
 
 # ├── docs
 
-# │   └── schema.sql
+# │   ├── schema.sql
+
+# │   └── screenshots
+
+# │       ├── 01-login.png
+
+# │       ├── 02-admin-dashboard.png
+
+# │       ├── 03-receptionist-dashboard.png
+
+# │       ├── 04-appointment.png
+
+# │       ├── 05-double-booking-validation.png
+
+# │       ├── 06-bill-receipt.png
+
+# │       └── 07-reports.png
 
 # ├── pom.xml
 
@@ -1074,48 +1214,6 @@
 
 # 
 
-# \## Screenshots
-
-# 
-
-# Screenshots demonstrating the major system functionality can be stored under:
-
-# 
-
-# ```text
-
-# docs/screenshots/
-
-# ```
-
-# 
-
-# Recommended evidence includes:
-
-# \- Login page
-
-# \- Administrator dashboard
-
-# \- Receptionist dashboard
-
-# \- Patient registration
-
-# \- Appointment management
-
-# \- Double-booking validation
-
-# \- Bill and printable receipt
-
-# \- Reports
-
-# \- Role-based dentist view
-
-# 
-
-# \---
-
-# 
-
 # \## Academic Project
 
 # 
@@ -1124,7 +1222,9 @@
 
 # 
 
-# The application demonstrates:
+# The project demonstrates the practical application of:
+
+# 
 
 # \- Object-oriented programming
 
@@ -1134,7 +1234,7 @@
 
 # \- Repository pattern
 
-# \- Service layer pattern
+# \- Service Layer pattern
 
 # \- Relational database integration
 
