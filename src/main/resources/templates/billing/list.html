@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Billing')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <h1 class="h3 mb-3">Bills</h1>
+    <p class="text-muted">Open an appointment and choose "Generate bill" to create a new bill.</p>
+
+    <table class="table table-striped bg-white">
+        <thead>
+        <tr>
+            <th>Bill number</th>
+            <th>Appointment number</th>
+            <th>Patient</th>
+            <th>Treatment</th>
+            <th class="text-end">Total amount</th>
+            <th>Generated at</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bill : ${bills}">
+            <td th:text="${bill.billNumber}">BILL-0001</td>
+            <td th:text="${bill.appointment.appointmentNumber}">APT-0001</td>
+            <td th:text="${bill.appointment.patient.name}">Patient</td>
+            <td th:text="${bill.appointment.treatment.treatmentName}">Treatment</td>
+            <td class="text-end" th:text="${#numbers.formatDecimal(bill.totalAmount, 1, 2)}">0.00</td>
+            <td th:text="${bill.generatedAtText}">2026-01-01 10:00</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-primary" th:href="@{'/billing/' + ${bill.id}}">Receipt</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(bills)}">
+            <td colspan="7" class="text-center text-muted">No bills have been generated yet.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

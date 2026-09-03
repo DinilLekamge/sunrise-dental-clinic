@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('User details')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <h1 class="h3 mb-3" th:text="${editing} ? 'Update user' : 'Create user'">Create user</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/users/save}" th:object="${userForm}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                    <div th:each="error : ${#fields.globalErrors()}" th:text="${error}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-control" id="username" type="text" th:field="*{username}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('username')}"
+                         th:errors="*{username}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-control" id="password" type="password" th:field="*{password}">
+                    <div class="form-text" th:if="${editing}">
+                        Leave this empty to keep the current password.
+                    </div>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="role">Role</label>
+                    <select class="form-select" id="role" th:field="*{role}">
+                        <option value="">Select a role</option>
+                        <option th:each="roleOption : ${roles}"
+                                th:value="${roleOption}"
+                                th:text="${roleOption}">ADMIN</option>
+                    </select>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" id="active" type="checkbox" th:field="*{active}">
+                    <label class="form-check-label" for="active">Active</label>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save user</button>
+                <a class="btn btn-link" th:href="@{/users}">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

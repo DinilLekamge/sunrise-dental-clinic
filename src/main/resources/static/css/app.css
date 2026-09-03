@@ -1,0 +1,43 @@
+.clinic-navbar {
+    background-color: #0f4c81;
+}
+
+.clinic-navbar .navbar-brand,
+.clinic-navbar .nav-link {
+    color: #ffffff;
+}
+
+.clinic-navbar .nav-link:hover {
+    color: #cfe2f3;
+}
+
+body {
+    background-color: #f5f7fa;
+}
+
+.login-page {
+    background-color: #0f4c81;
+    min-height: 100vh;
+}
+
+.receipt-box {
+    max-width: 640px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 32px;
+    border: 1px solid #dee2e6;
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    body {
+        background: #ffffff;
+    }
+
+    .receipt-box {
+        border: none;
+    }
+}

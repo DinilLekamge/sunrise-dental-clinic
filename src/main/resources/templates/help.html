@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Help')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <h1 class="h3 mb-3">Help for clinic staff</h1>
+    <p class="text-muted">Step-by-step instructions for the tasks you will use every day.</p>
+
+    <div class="accordion" id="helpAccordion">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help1">Logging in</button>
+            </h2>
+            <div id="help1" class="accordion-collapse collapse show" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Open the clinic system in your browser.</li>
+                        <li>Type the username and password given to you by the administrator.</li>
+                        <li>Select <strong>Sign in</strong>. You are taken to the dashboard for your role.</li>
+                        <li>If the message says the details are incorrect, check the caps lock key and try again.
+                            Ask the administrator if your account has been deactivated.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help2">Registering a patient</button>
+            </h2>
+            <div id="help2" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Select <strong>Patients</strong> in the menu.</li>
+                        <li>Select <strong>Register patient</strong>.</li>
+                        <li>Type the name, address and contact number.</li>
+                        <li>Select <strong>Save patient</strong>. Any field that is wrong is shown in red.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help3">Creating an appointment</button>
+            </h2>
+            <div id="help3" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Register the patient first if this is a new patient.</li>
+                        <li>Select <strong>Appointments</strong>, then <strong>Register appointment</strong>.</li>
+                        <li>Choose the patient, the dentist and the treatment.</li>
+                        <li>Choose the date and the time. The date cannot be in the past.</li>
+                        <li>Select <strong>Save appointment</strong>. The system creates the appointment number.</li>
+                        <li>If the dentist is already booked at that time the system shows a message and nothing is
+                            saved. Choose another time or another dentist.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help4">Searching for an appointment</button>
+            </h2>
+            <div id="help4" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Select <strong>Appointments</strong>.</li>
+                        <li>Type the appointment number in the search box and select
+                            <strong>Search by number</strong>.</li>
+                        <li>The full appointment and patient details are shown.</li>
+                        <li>You can also filter the list by dentist.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help5">Updating or cancelling an appointment</button>
+            </h2>
+            <div id="help5" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Open the appointment from the list or by searching for its number.</li>
+                        <li>Select <strong>Update appointment</strong> to change the dentist, treatment,
+                            date, time or status.</li>
+                        <li>Select <strong>Cancel appointment</strong> to cancel it, then confirm. The record stays
+                            in the system with the status CANCELLED.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help6">Generating a bill and printing the receipt</button>
+            </h2>
+            <div id="help6" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Open the appointment.</li>
+                        <li>Select <strong>Generate bill</strong>. The total is the treatment fee plus the
+                            consultation fee.</li>
+                        <li>The receipt page opens with the bill number and all the details.</li>
+                        <li>Select <strong>Print receipt</strong> and use your browser print dialog.</li>
+                        <li>Only one bill can exist for each appointment. If a bill already exists, select
+                            <strong>View receipt</strong> instead.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#help7">Logging out</button>
+            </h2>
+            <div id="help7" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <ol>
+                        <li>Select <strong>Log out</strong> at the top right of any page.</li>
+                        <li>You are returned to the login page and your session is closed.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

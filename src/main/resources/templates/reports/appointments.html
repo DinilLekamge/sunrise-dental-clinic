@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Appointment report')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Appointment report</h1>
+        <a class="btn btn-outline-secondary" th:href="@{/reports/bills}">Billing report</a>
+    </div>
+
+    <form class="row g-2 mb-3" method="get" th:action="@{/reports/appointments}">
+        <div class="col-auto">
+            <label class="form-label" for="from">From</label>
+            <input class="form-control" id="from" type="date" name="from" th:value="${from}">
+        </div>
+        <div class="col-auto">
+            <label class="form-label" for="to">To</label>
+            <input class="form-control" id="to" type="date" name="to" th:value="${to}">
+        </div>
+        <div class="col-auto align-self-end">
+            <button class="btn btn-primary" type="submit">Apply filter</button>
+            <a class="btn btn-link" th:href="@{/reports/appointments}">Show all</a>
+        </div>
+    </form>
+
+    <table class="table table-bordered bg-white">
+        <thead>
+        <tr>
+            <th>Appointment number</th>
+            <th>Patient</th>
+            <th>Dentist</th>
+            <th>Treatment</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}">
+            <td th:text="${appointment.appointmentNumber}">APT-0001</td>
+            <td th:text="${appointment.patient.name}">Patient</td>
+            <td th:text="${appointment.dentist.name}">Dentist</td>
+            <td th:text="${appointment.treatment.treatmentName}">Treatment</td>
+            <td th:text="${appointment.appointmentDate}">2026-01-01</td>
+            <td th:text="${appointment.appointmentTime}">09:00</td>
+            <td th:text="${appointment.status}">SCHEDULED</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(appointments)}">
+            <td colspan="7" class="text-center text-muted">No appointments match this filter.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="text-muted">Total appointments listed: <span th:text="${#lists.size(appointments)}">0</span></p>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

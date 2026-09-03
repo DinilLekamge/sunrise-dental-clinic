@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Dentist details')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <h1 class="h3 mb-3" th:text="${editing} ? 'Update dentist' : 'Add dentist'">Add dentist</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/dentists/save}" th:object="${dentistForm}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                    <div th:each="error : ${#fields.globalErrors()}" th:text="${error}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" id="name" type="text" th:field="*{name}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="specialization">Specialization</label>
+                    <input class="form-control" id="specialization" type="text" th:field="*{specialization}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('specialization')}"
+                         th:errors="*{specialization}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="contactNumber">Contact number</label>
+                    <input class="form-control" id="contactNumber" type="text" th:field="*{contactNumber}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('contactNumber')}"
+                         th:errors="*{contactNumber}"></div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" id="active" type="checkbox" th:field="*{active}">
+                    <label class="form-check-label" for="active">Active</label>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save dentist</button>
+                <a class="btn btn-link" th:href="@{/dentists}">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

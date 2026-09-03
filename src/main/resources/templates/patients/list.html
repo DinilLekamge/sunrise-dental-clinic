@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Patients')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Patients</h1>
+        <a class="btn btn-primary" th:href="@{/patients/new}" sec:authorize="hasRole('RECEPTIONIST')">
+            Register patient
+        </a>
+    </div>
+
+    <form class="row g-2 mb-3" method="get" th:action="@{/patients}">
+        <div class="col-auto">
+            <input class="form-control" type="text" name="query" th:value="${query}"
+                   placeholder="Search by name or contact number">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-link" th:href="@{/patients}">Clear</a>
+        </div>
+    </form>
+
+    <table class="table table-striped bg-white">
+        <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact number</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}">1</td>
+            <td th:text="${patient.name}">Name</td>
+            <td th:text="${patient.address}">Address</td>
+            <td th:text="${patient.contactNumber}">0771234567</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-primary" th:href="@{'/patients/' + ${patient.id}}">View</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(patients)}">
+            <td colspan="5" class="text-center text-muted">No patients to show. Register a patient to get started.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Patient')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <h1 class="h3 mb-3">Patient details</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Patient ID</dt>
+                <dd class="col-sm-9" th:text="${patient.id}">1</dd>
+
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9" th:text="${patient.name}">Name</dd>
+
+                <dt class="col-sm-3">Address</dt>
+                <dd class="col-sm-9" th:text="${patient.address}">Address</dd>
+
+                <dt class="col-sm-3">Contact number</dt>
+                <dd class="col-sm-9" th:text="${patient.contactNumber}">0771234567</dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-white">
+            <a class="btn btn-outline-primary" th:href="@{'/patients/' + ${patient.id} + '/edit'}"
+               sec:authorize="hasRole('RECEPTIONIST')">Update patient</a>
+            <a class="btn btn-link" th:href="@{/patients}">Back to list</a>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

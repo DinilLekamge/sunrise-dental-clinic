@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Treatment details')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <h1 class="h3 mb-3" th:text="${editing} ? 'Update treatment' : 'Add treatment'">Add treatment</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/treatments/save}" th:object="${treatmentForm}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                    <div th:each="error : ${#fields.globalErrors()}" th:text="${error}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="treatmentName">Treatment name</label>
+                    <input class="form-control" id="treatmentName" type="text" th:field="*{treatmentName}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('treatmentName')}"
+                         th:errors="*{treatmentName}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="treatmentFee">Treatment fee</label>
+                    <input class="form-control" id="treatmentFee" type="number" step="0.01" min="0"
+                           th:field="*{treatmentFee}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('treatmentFee')}"
+                         th:errors="*{treatmentFee}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="consultationFee">Consultation fee</label>
+                    <input class="form-control" id="consultationFee" type="number" step="0.01" min="0"
+                           th:field="*{consultationFee}">
+                    <div class="text-danger small" th:if="${#fields.hasErrors('consultationFee')}"
+                         th:errors="*{consultationFee}"></div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" id="active" type="checkbox" th:field="*{active}">
+                    <label class="form-check-label" for="active">Active</label>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save treatment</button>
+                <a class="btn btn-link" th:href="@{/treatments}">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

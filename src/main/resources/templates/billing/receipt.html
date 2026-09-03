@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Receipt')}"></head>
+<body>
+<div class="no-print">
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+</div>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="receipt-box">
+        <h1 class="h4 text-center mb-1">SUNRISE DENTAL CLINIC</h1>
+        <p class="text-center text-muted">Patient receipt</p>
+        <hr>
+
+        <dl class="row mb-0">
+            <dt class="col-6">Bill number</dt>
+            <dd class="col-6 text-end" th:text="${bill.billNumber}">BILL-0001</dd>
+
+            <dt class="col-6">Appointment number</dt>
+            <dd class="col-6 text-end" th:text="${bill.appointment.appointmentNumber}">APT-0001</dd>
+
+            <dt class="col-6">Patient name</dt>
+            <dd class="col-6 text-end" th:text="${bill.appointment.patient.name}">Patient</dd>
+
+            <dt class="col-6">Dentist name</dt>
+            <dd class="col-6 text-end" th:text="${bill.appointment.dentist.name}">Dentist</dd>
+
+            <dt class="col-6">Treatment</dt>
+            <dd class="col-6 text-end" th:text="${bill.appointment.treatment.treatmentName}">Treatment</dd>
+        </dl>
+
+        <hr>
+
+        <dl class="row mb-0">
+            <dt class="col-6">Treatment fee</dt>
+            <dd class="col-6 text-end" th:text="${#numbers.formatDecimal(bill.treatmentFee, 1, 2)}">0.00</dd>
+
+            <dt class="col-6">Consultation fee</dt>
+            <dd class="col-6 text-end" th:text="${#numbers.formatDecimal(bill.consultationFee, 1, 2)}">0.00</dd>
+
+            <dt class="col-6 h5">Total amount</dt>
+            <dd class="col-6 text-end h5" th:text="${#numbers.formatDecimal(bill.totalAmount, 1, 2)}">0.00</dd>
+        </dl>
+
+        <hr>
+        <p class="text-center text-muted mb-0">
+            Generated on <span th:text="${bill.generatedAtText}">2026-01-01 10:00</span>
+        </p>
+    </div>
+
+    <div class="text-center mt-3 no-print">
+        <button class="btn btn-primary" type="button" onclick="printReceipt();">Print receipt</button>
+        <a class="btn btn-link" th:href="@{/billing}">Back to bills</a>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Appointment details')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <h1 class="h3 mb-3" th:text="${editing} ? 'Update appointment' : 'Register appointment'">Register appointment</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/appointments/save}" th:object="${appointmentForm}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                    <div th:each="error : ${#fields.globalErrors()}" th:text="${error}"></div>
+                </div>
+
+                <div class="mb-3" th:if="${editing}">
+                    <label class="form-label" for="appointmentNumber">Appointment number</label>
+                    <input class="form-control" id="appointmentNumber" type="text" readonly
+                           th:field="*{appointmentNumber}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="patientId">Patient</label>
+                    <select class="form-select" id="patientId" th:field="*{patientId}">
+                        <option value="">Select a patient</option>
+                        <option th:each="patient : ${patients}"
+                                th:value="${patient.id}"
+                                th:text="${patient.name} + ' (' + ${patient.contactNumber} + ')'">Patient</option>
+                    </select>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('patientId')}"
+                         th:errors="*{patientId}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="dentistId">Dentist</label>
+                    <select class="form-select" id="dentistId" th:field="*{dentistId}">
+                        <option value="">Select a dentist</option>
+                        <option th:each="dentist : ${dentists}"
+                                th:value="${dentist.id}"
+                                th:text="${dentist.name}">Dentist</option>
+                    </select>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('dentistId')}"
+                         th:errors="*{dentistId}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="treatmentId">Treatment</label>
+                    <select class="form-select" id="treatmentId" th:field="*{treatmentId}">
+                        <option value="">Select a treatment</option>
+                        <option th:each="treatment : ${treatments}"
+                                th:value="${treatment.id}"
+                                th:text="${treatment.treatmentName}">Treatment</option>
+                    </select>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('treatmentId')}"
+                         th:errors="*{treatmentId}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="appointmentDate">Appointment date</label>
+                        <input class="form-control" id="appointmentDate" type="date" th:field="*{appointmentDate}">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('appointmentDate')}"
+                             th:errors="*{appointmentDate}"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="appointmentTime">Appointment time</label>
+                        <input class="form-control" id="appointmentTime" type="time" th:field="*{appointmentTime}">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('appointmentTime')}"
+                             th:errors="*{appointmentTime}"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3" th:if="${editing}">
+                    <label class="form-label" for="status">Status</label>
+                    <select class="form-select" id="status" th:field="*{status}">
+                        <option th:each="statusOption : ${statuses}"
+                                th:value="${statusOption}"
+                                th:text="${statusOption}">SCHEDULED</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save appointment</button>
+                <a class="btn btn-link" th:href="@{/appointments}">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

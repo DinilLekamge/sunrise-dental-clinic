@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Appointment')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <h1 class="h3 mb-3">Appointment details</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Appointment number</dt>
+                <dd class="col-sm-8" th:text="${appointment.appointmentNumber}">APT-0001</dd>
+
+                <dt class="col-sm-4">Patient name</dt>
+                <dd class="col-sm-8" th:text="${appointment.patient.name}">Patient</dd>
+
+                <dt class="col-sm-4">Address</dt>
+                <dd class="col-sm-8" th:text="${appointment.patient.address}">Address</dd>
+
+                <dt class="col-sm-4">Contact number</dt>
+                <dd class="col-sm-8" th:text="${appointment.patient.contactNumber}">0771234567</dd>
+
+                <dt class="col-sm-4">Dentist</dt>
+                <dd class="col-sm-8" th:text="${appointment.dentist.name}">Dentist</dd>
+
+                <dt class="col-sm-4">Treatment</dt>
+                <dd class="col-sm-8" th:text="${appointment.treatment.treatmentName}">Treatment</dd>
+
+                <dt class="col-sm-4">Appointment date</dt>
+                <dd class="col-sm-8" th:text="${appointment.appointmentDate}">2026-01-01</dd>
+
+                <dt class="col-sm-4">Appointment time</dt>
+                <dd class="col-sm-8" th:text="${appointment.appointmentTime}">09:00</dd>
+
+                <dt class="col-sm-4">Status</dt>
+                <dd class="col-sm-8" th:text="${appointment.status}">SCHEDULED</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer bg-white" sec:authorize="hasRole('RECEPTIONIST')">
+            <a class="btn btn-outline-primary" th:href="@{'/appointments/' + ${appointment.id} + '/edit'}">
+                Update appointment
+            </a>
+
+            <form class="d-inline" method="post"
+                  th:action="@{'/appointments/' + ${appointment.id} + '/cancel'}"
+                  th:if="${appointment.status.name() == 'SCHEDULED'}"
+                  onsubmit="return confirmAction('Cancel this appointment?');">
+                <button class="btn btn-outline-danger" type="submit">Cancel appointment</button>
+            </form>
+
+            <form class="d-inline" method="post"
+                  th:action="@{'/billing/generate/' + ${appointment.id}}"
+                  th:if="${bill == null and appointment.status.name() != 'CANCELLED'}">
+                <button class="btn btn-success" type="submit">Generate bill</button>
+            </form>
+
+            <a class="btn btn-success" th:if="${bill != null}" th:href="@{'/billing/' + ${bill.id}}">
+                View receipt
+            </a>
+
+            <a class="btn btn-link" th:href="@{/appointments}">Back to list</a>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

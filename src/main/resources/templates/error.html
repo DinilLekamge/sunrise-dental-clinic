@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Problem')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div class="card border-danger">
+        <div class="card-body">
+            <h1 class="h4" th:text="${errorTitle} ?: 'Something went wrong'">Something went wrong</h1>
+            <p th:text="${errorMessage} ?: 'The page could not be displayed. Please try again.'">Details</p>
+            <a class="btn btn-primary" th:href="@{/dashboard}">Back to dashboard</a>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

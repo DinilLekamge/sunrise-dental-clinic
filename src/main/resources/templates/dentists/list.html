@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Dentists')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Dentists</h1>
+        <a class="btn btn-primary" th:href="@{/dentists/new}">Add dentist</a>
+    </div>
+
+    <table class="table table-striped bg-white">
+        <thead>
+        <tr>
+            <th>Dentist ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Contact number</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dentist : ${dentists}">
+            <td th:text="${dentist.id}">1</td>
+            <td th:text="${dentist.name}">Name</td>
+            <td th:text="${dentist.specialization}">Specialization</td>
+            <td th:text="${dentist.contactNumber}">0112345678</td>
+            <td>
+                <span class="badge text-bg-success" th:if="${dentist.active}">Active</span>
+                <span class="badge text-bg-secondary" th:unless="${dentist.active}">Inactive</span>
+            </td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-primary" th:href="@{'/dentists/' + ${dentist.id} + '/edit'}">Edit</a>
+                <form class="d-inline" method="post" th:action="@{'/dentists/' + ${dentist.id} + '/toggle'}"
+                      onsubmit="return confirmAction('Change the active status of this dentist?');">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit"
+                            th:text="${dentist.active} ? 'Deactivate' : 'Activate'">Deactivate</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(dentists)}">
+            <td colspan="6" class="text-center text-muted">No dentists have been added yet.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

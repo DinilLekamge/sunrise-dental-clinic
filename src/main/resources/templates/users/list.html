@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Users')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">System users</h1>
+        <a class="btn btn-primary" th:href="@{/users/new}">Create user</a>
+    </div>
+
+    <table class="table table-striped bg-white">
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.username}">admin</td>
+            <td th:text="${user.role}">ADMIN</td>
+            <td>
+                <span class="badge text-bg-success" th:if="${user.active}">Active</span>
+                <span class="badge text-bg-secondary" th:unless="${user.active}">Inactive</span>
+            </td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
+                <form class="d-inline" method="post" th:action="@{'/users/' + ${user.id} + '/toggle'}"
+                      onsubmit="return confirmAction('Change the active status of this account?');">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit"
+                            th:text="${user.active} ? 'Deactivate' : 'Activate'">Deactivate</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

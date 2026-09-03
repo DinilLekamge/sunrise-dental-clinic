@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Login')}"></head>
+<body class="login-page">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body p-4">
+                    <h1 class="h4 mb-1">Sunrise Dental Clinic</h1>
+                    <p class="text-muted">Appointment and Patient Management System</p>
+
+                    <div class="alert alert-danger" th:if="${param.error}">
+                        The username or password is incorrect, or the account is inactive.
+                    </div>
+                    <div class="alert alert-success" th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+
+                    <form th:action="@{/login}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username"
+                                   required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>
