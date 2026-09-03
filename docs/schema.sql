@@ -63,3 +63,38 @@ CREATE TABLE IF NOT EXISTS bills (
     generated_at     DATETIME,
     CONSTRAINT fk_bill_appointment FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id)
 );
+-- ============================================================
+-- Stored Procedure: Get Appointment Details
+-- Returns complete appointment information for a supplied
+-- appointment number.
+-- ============================================================
+
+DELIMITER //
+
+CREATE PROCEDURE GetAppointmentDetails(IN p_appointment_number VARCHAR(50))
+BEGIN
+SELECT
+    a.appointment_number,
+    p.name AS patient_name,
+    p.address,
+    p.contact_number,
+    d.name AS dentist_name,
+    d.specialization,
+    t.treatment_name,
+    t.treatment_fee,
+    t.consultation_fee,
+    a.appointment_date,
+    a.appointment_time,
+    a.status
+FROM appointments a
+         INNER JOIN patients p
+                    ON a.patient_id = p.patient_id
+         INNER JOIN dentists d
+                    ON a.dentist_id = d.dentist_id
+         INNER JOIN treatments t
+                    ON a.treatment_id = t.treatment_id
+WHERE a.appointment_number = p_appointment_number;
+END //
+
+DELIMITER ;
+

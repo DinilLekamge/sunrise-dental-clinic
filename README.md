@@ -126,6 +126,8 @@
 
 # \- User-friendly validation and error messages
 
+# \- Stored procedure for retrieving complete appointment details
+
 # 
 
 # \---
@@ -698,6 +700,126 @@
 
 # 
 
+# \## Advanced Database Feature
+
+# 
+
+# The project includes a MySQL stored procedure named:
+
+# 
+
+# ```text
+
+# GetAppointmentDetails
+
+# ```
+
+# 
+
+# The procedure accepts an appointment number as an input parameter and retrieves complete appointment information by joining the following tables:
+
+# 
+
+# ```text
+
+# appointments
+
+# patients
+
+# dentists
+
+# treatments
+
+# ```
+
+# 
+
+# The stored procedure is defined as:
+
+# 
+
+# ```sql
+
+# DELIMITER //
+
+# 
+
+# CREATE PROCEDURE GetAppointmentDetails(IN p\_appointment\_number VARCHAR(50))
+
+# BEGIN
+
+# &#x20;   SELECT
+
+# &#x20;       a.appointment\_number,
+
+# &#x20;       p.name AS patient\_name,
+
+# &#x20;       p.address,
+
+# &#x20;       p.contact\_number,
+
+# &#x20;       d.name AS dentist\_name,
+
+# &#x20;       d.specialization,
+
+# &#x20;       t.treatment\_name,
+
+# &#x20;       t.treatment\_fee,
+
+# &#x20;       t.consultation\_fee,
+
+# &#x20;       a.appointment\_date,
+
+# &#x20;       a.appointment\_time,
+
+# &#x20;       a.status
+
+# &#x20;   FROM appointments a
+
+# &#x20;   INNER JOIN patients p
+
+# &#x20;       ON a.patient\_id = p.patient\_id
+
+# &#x20;   INNER JOIN dentists d
+
+# &#x20;       ON a.dentist\_id = d.dentist\_id
+
+# &#x20;   INNER JOIN treatments t
+
+# &#x20;       ON a.treatment\_id = t.treatment\_id
+
+# &#x20;   WHERE a.appointment\_number = p\_appointment\_number;
+
+# END //
+
+# 
+
+# DELIMITER ;
+
+# ```
+
+# 
+
+# It can be tested using:
+
+# 
+
+# ```sql
+
+# CALL GetAppointmentDetails('APT001');
+
+# ```
+
+# 
+
+# This provides a reusable database-level operation for retrieving complete appointment information using a single appointment number.
+
+# 
+
+# \---
+
+# 
+
 # \## Business Rules
 
 # 
@@ -1232,11 +1354,13 @@
 
 # \- MVC
 
-# \- Repository pattern
+# \- Repository Pattern
 
-# \- Service Layer pattern
+# \- Service Layer Pattern
 
 # \- Relational database integration
+
+# \- Advanced database functionality using a stored procedure
 
 # \- Authentication and role-based authorization
 
