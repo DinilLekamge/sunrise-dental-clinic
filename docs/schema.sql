@@ -39,30 +39,43 @@ CREATE TABLE IF NOT EXISTS treatments (
 );
 
 CREATE TABLE IF NOT EXISTS appointments (
-    appointment_id     BIGINT PRIMARY KEY AUTO_INCREMENT,
-    appointment_number VARCHAR(50) UNIQUE NOT NULL,
+                                            appointment_id     BIGINT PRIMARY KEY AUTO_INCREMENT,
+                                            appointment_number VARCHAR(50) UNIQUE NOT NULL,
     patient_id         BIGINT NOT NULL,
     dentist_id         BIGINT NOT NULL,
     treatment_id       BIGINT NOT NULL,
     appointment_date   DATE NOT NULL,
     appointment_time   TIME NOT NULL,
-    status             ENUM('SCHEDULED','COMPLETED','CANCELLED') DEFAULT 'SCHEDULED',
-    CONSTRAINT fk_appointment_patient   FOREIGN KEY (patient_id)   REFERENCES patients(patient_id),
-    CONSTRAINT fk_appointment_dentist   FOREIGN KEY (dentist_id)   REFERENCES dentists(dentist_id),
-    CONSTRAINT fk_appointment_treatment FOREIGN KEY (treatment_id) REFERENCES treatments(treatment_id),
-    CONSTRAINT uq_dentist_slot UNIQUE (dentist_id, appointment_date, appointment_time)
-);
+    status             ENUM('SCHEDULED','COMPLETED','CANCELLED')
+    DEFAULT 'SCHEDULED',
+    CONSTRAINT fk_appointment_patient
+    FOREIGN KEY (patient_id)
+    REFERENCES patients(patient_id),
+    CONSTRAINT fk_appointment_dentist
+    FOREIGN KEY (dentist_id)
+    REFERENCES dentists(dentist_id),
+    CONSTRAINT fk_appointment_treatment
+    FOREIGN KEY (treatment_id)
+    REFERENCES treatments(treatment_id),
+    CONSTRAINT uq_dentist_timeslot
+    UNIQUE (dentist_id, appointment_date, appointment_time)
+    );
 
 CREATE TABLE IF NOT EXISTS bills (
-    bill_id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-    bill_number      VARCHAR(50) UNIQUE NOT NULL,
+                                     bill_id          BIGINT PRIMARY KEY AUTO_INCREMENT,
+                                     bill_number      VARCHAR(50) UNIQUE NOT NULL,
     appointment_id   BIGINT UNIQUE NOT NULL,
     treatment_fee    DECIMAL(10,2) NOT NULL,
     consultation_fee DECIMAL(10,2) NOT NULL,
     total_amount     DECIMAL(10,2) NOT NULL,
     generated_at     DATETIME,
-    CONSTRAINT fk_bill_appointment FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id)
-);
+    CONSTRAINT fk_bill_appointment
+    FOREIGN KEY (appointment_id)
+    REFERENCES appointments(appointment_id),
+    CHECK (treatment_fee >= 0),
+    CHECK (consultation_fee >= 0),
+    CHECK (total_amount >= 0)
+    );
 -- ============================================================
 -- Stored Procedure: Get Appointment Details
 -- Returns complete appointment information for a supplied
